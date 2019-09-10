@@ -12,22 +12,77 @@ ApplicationWindow {
 
     Row {
         id: row
-        anchors.fill: parent
+        x: 0
+        y: 0
 
         ToolBar {
             id: toolBar
-            width: 100
+            width: 120
             height: applicationWindow.height
             Material.elevation: 1
+            Material.background: Material.Grey
+
+            ToolButton {
+                id: toolButton1
+                width: toolBar.width
+                icon.source: "./img/icons/new-task.png"
+                text: qsTr("new Task")
+                x:0
+                y:10
+                contentItem: Item{
+                    Row{
+                        spacing: 10
+                        Image{
+                            source: toolButton1.icon.source
+                            width: toolButton1.icon.width
+                            height: toolButton1.icon.height
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                        Text{
+                            text: toolButton1.text
+                            font: toolButton1.font
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                    }
+                }
+            }
+
+            ToolButton {
+                id: toolButton2
+                width: toolBar.width
+                icon.source: "./img/icons/db.png"
+                text: qsTr("DB")
+                x:0
+                y:toolButton1.y + toolButton1.height + 4
+                contentItem: Item{
+                    Row{
+                        spacing: 10
+                        Image{
+                            source: toolButton2.icon.source
+                            width: toolButton2.icon.width
+                            height: toolButton2.icon.height
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                        Text{
+                            text: toolButton2.text
+                            font: toolButton2.font
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                    }
+                }
+            }
         }
 
         ColumnLayout {
             id: columnLayout
-            width: applicationWindow.width - 100
+            width: applicationWindow.width - toolBar.width
             height: applicationWindow.height
 
             Chronometer {
-                Layout.alignment: Qt.AlignHCenter
+                visible: true
+                Layout.fillHeight: false
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 transformOrigin: Item.Center
                 spacing: 10
             }
@@ -37,3 +92,5 @@ ApplicationWindow {
     }
 
 }
+
+
