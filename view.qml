@@ -25,7 +25,7 @@ ApplicationWindow {
             ToolButton {
                 id: toolButton1
                 width: toolBar.width
-                icon.source: "./img/icons/new-task.png"
+                icon.source: "./img/icons/svg/new.svg"
                 text: qsTr("new Task")
                 x:0
                 y:10
@@ -50,8 +50,8 @@ ApplicationWindow {
             ToolButton {
                 id: toolButton2
                 width: toolBar.width
-                icon.source: "./img/icons/db.png"
-                text: qsTr("DB")
+                icon.source: "./img/icons/svg/history.svg"
+                text: qsTr("History")
                 x:0
                 y:toolButton1.y + toolButton1.height + 4
                 contentItem: Item{
