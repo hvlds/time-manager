@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.13
 import QtQuick.Controls.Material 2.12
 
 ApplicationWindow {
@@ -7,39 +8,32 @@ ApplicationWindow {
     visible: true
     width: 600
     height: 600
-    Column {
-        spacing: 10
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
-        Text {
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: chronometer.text
-            font.family: "Helvetica"
-            font.pointSize: 55
-            color:"black"
+    title: "Time Manager"
+
+    Row {
+        id: row
+        anchors.fill: parent
+
+        ToolBar {
+            id: toolBar
+            width: 100
+            height: applicationWindow.height
+            Material.elevation: 1
         }
-        TextField {
-            id: taskText
-            selectByMouse: true
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: (2/3) * applicationWindow.width
-            placeholderText: qsTr("Enter task description")
-        }
-        Row {
-            anchors.horizontalCenter: parent.horizontalCenter
-            Button {
-                objectName: "startButton"
-                text: qsTr("start!")
-                visible: chronometer.start_visibility
-                onClicked: chronometer.start_clock()
-                Material.background: Material.Red
-            }
-            Button {
-                objectName: "stopButton"
-                text: qsTr("stop!")
-                visible: chronometer.stop_visibility
-                Material.background: Material.Blue
+
+        ColumnLayout {
+            id: columnLayout
+            width: applicationWindow.width - 100
+            height: applicationWindow.height
+
+            Chronometer {
+                Layout.alignment: Qt.AlignHCenter
+                transformOrigin: Item.Center
+                spacing: 10
             }
         }
+
+
     }
+
 }
