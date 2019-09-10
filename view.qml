@@ -13,7 +13,7 @@ ApplicationWindow {
         anchors.verticalCenter: parent.verticalCenter
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
-            text:"00:00"
+            text: chronometer.text
             font.family: "Helvetica"
             font.pointSize: 55
             color:"black"
@@ -25,14 +25,21 @@ ApplicationWindow {
             width: (2/3) * applicationWindow.width
             placeholderText: qsTr("Enter task description")
         }
-        Column {
+        Row {
             anchors.horizontalCenter: parent.horizontalCenter
             Button {
-                objectName: "myButton"
+                objectName: "startButton"
                 text: qsTr("start!")
+                visible: chronometer.start_visibility
                 onClicked: chronometer.start_clock()
                 Material.background: Material.Red
-            }	    
+            }
+            Button {
+                objectName: "stopButton"
+                text: qsTr("stop!")
+                visible: chronometer.stop_visibility
+                Material.background: Material.Blue
+            }
         }
     }
 }
