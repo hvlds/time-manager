@@ -28,8 +28,9 @@ ApplicationWindow {
         Column {
             anchors.horizontalCenter: parent.horizontalCenter
             Button {
-                id: startButton
+                objectName: "myButton"
                 text: qsTr("start!")
+                onClicked: chronometer.start_clock()
                 Material.background: Material.Red
             }	    
         }
