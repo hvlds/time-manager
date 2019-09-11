@@ -8,7 +8,7 @@ First of all, we recommend you to create and activate a new environment (you can
 
 	git clone https://github.com/hfvaldesg/time-manager.git
 	cd time-manager
-	pip install requirements.txt
+	pip3 install -r requirements.txt
 	python3 main.py
 
 
