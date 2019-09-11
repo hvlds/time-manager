@@ -17,6 +17,13 @@ ToolBar {
         text: qsTr("new Task")
         x:0
         y:10
+        Rectangle
+        {
+            id: background1
+            anchors.fill: parent
+            opacity: 0.4
+            color: "grey"
+        }
         contentItem: Item{
             Row{
                 spacing: 10
@@ -35,6 +42,9 @@ ToolBar {
         }
         onClicked: {
             chronometerView.visible = true;
+            background1.opacity = 0.4;
+            background2.opacity = 0;
+            background3.opacity = 0;
         }
     }
     ToolButton {
@@ -44,9 +54,18 @@ ToolBar {
         text: qsTr("History")
         x:0
         y:toolButton1.y + toolButton1.height + 4
+        Rectangle
+        {
+            id: background2
+            anchors.fill: parent
+            opacity: 0
+            color: "grey"
+        }
         onClicked:{
             chronometerView.visible = false;
-
+            background1.opacity = 0;
+            background2.opacity = 0.4;
+            background3.opacity = 0;
         }
         contentItem: Item{
             Row{
@@ -72,6 +91,13 @@ ToolBar {
         text: qsTr("Pomodoro")
         x:0
         y:toolButton2.y + toolButton2.height + 4
+        Rectangle
+        {
+            id: background3
+            anchors.fill: parent
+            opacity: 0
+            color: "grey"
+        }
         contentItem: Item{
             Row{
                 spacing: 10
@@ -90,6 +116,9 @@ ToolBar {
         }
         onClicked:{
             chronometerView.visible = false;
+            background1.opacity = 0;
+            background2.opacity = 0;
+            background3.opacity = 0.4;
         }
     }
 }
