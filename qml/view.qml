@@ -36,6 +36,16 @@ ApplicationWindow {
                 transformOrigin: Item.Center
                 spacing: 10
             }
+
+            HistoryView {
+                id: historyView
+                visible: false
+                Layout.fillHeight: false
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                transformOrigin: Item.Center
+                spacing: 10
+            }
         }
 
     }

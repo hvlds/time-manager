@@ -43,6 +43,7 @@ ToolBar {
         }
         onClicked: {
             timerView.visible = true;
+            historyView.visible = false;
             background1.opacity = 0.4;
             background2.opacity = 0;
             background3.opacity = 0;
@@ -64,6 +65,7 @@ ToolBar {
         }
         onClicked:{
             timerView.visible = false;
+            historyView.visible = true;
             background1.opacity = 0;
             background2.opacity = 0.4;
             background3.opacity = 0;
@@ -119,6 +121,7 @@ ToolBar {
         }
         onClicked:{
             timerView.visible = false;
+            historyView.visible = false;
             background1.opacity = 0;
             background2.opacity = 0;
             background3.opacity = 0.4;

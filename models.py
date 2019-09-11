@@ -25,4 +25,11 @@ class Task(Base):
     date_start = Column(DATETIME)
     date_stop = Column(DATETIME)
 
+    def __str__(self):
+        return "Task:{} | Start: {} |End: {}".format(
+            self.description,
+            self.date_start,
+            self.date_stop
+        )
+
 Base.metadata.create_all(db.engine)
