@@ -4,7 +4,7 @@ from datetime import timedelta, datetime
 from models import Database, Task
 
 
-class ChronoWorker(QThread):
+class TimerWorker(QThread):
     on_start = Signal(object)
     on_stop = Signal(object)
 
@@ -35,14 +35,14 @@ class ChronoWorker(QThread):
         self.on_stop.emit(dates)
 
 
-class Chronometer(QObject):
+class Timer(QObject):
     def __init__(self):
         QObject.__init__(self)
         self._text = "0:00:00"
         self._description = "No Description"
         self._start_visibility = True
         self._stop_visibility = False
-        self.thread = ChronoWorker()
+        self.thread = TimerWorker()
         self.thread.on_start.connect(self.on_start)
         self.thread.on_stop.connect(self.on_stop)
 

@@ -3,6 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DATETIME
 from sqlalchemy.orm import sessionmaker
 
+
 class Database():
     def __init__(self):
         db_uri = "sqlite:///db.sqlite"
@@ -11,8 +12,10 @@ class Database():
         Session = sessionmaker(self.engine)
         self.session = Session()
 
+
 db = Database()
 Base = declarative_base()
+
 
 class Task(Base):
     __tablename__ = 'tasks'

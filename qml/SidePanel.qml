@@ -8,13 +8,13 @@ ToolBar {
     width: 130
     height: applicationWindow.height
     Material.elevation: 1
-    Material.background: Material.Lime
+    Material.background: Material.Amber
 
     ToolButton {
         id: toolButton1
         width: toolBar.width
         icon.source: "../img/svg/new.svg"
-        text: qsTr("new Task")
+        text: qsTr("Timer")
         x:0
         y:10
         Rectangle
@@ -27,6 +27,7 @@ ToolBar {
         contentItem: Item{
             Row{
                 spacing: 10
+                anchors.fill: parent
                 Image{
                     source: toolButton1.icon.source
                     width: toolButton1.icon.width
@@ -41,7 +42,7 @@ ToolBar {
             }
         }
         onClicked: {
-            chronometerView.visible = true;
+            timerView.visible = true;
             background1.opacity = 0.4;
             background2.opacity = 0;
             background3.opacity = 0;
@@ -62,13 +63,14 @@ ToolBar {
             color: "grey"
         }
         onClicked:{
-            chronometerView.visible = false;
+            timerView.visible = false;
             background1.opacity = 0;
             background2.opacity = 0.4;
             background3.opacity = 0;
         }
         contentItem: Item{
             Row{
+                anchors.fill: parent
                 spacing: 10
                 Image{
                     source: toolButton2.icon.source
@@ -100,6 +102,7 @@ ToolBar {
         }
         contentItem: Item{
             Row{
+                anchors.fill: parent
                 spacing: 10
                 Image{
                     source: toolButton3.icon.source
@@ -115,7 +118,7 @@ ToolBar {
             }
         }
         onClicked:{
-            chronometerView.visible = false;
+            timerView.visible = false;
             background1.opacity = 0;
             background2.opacity = 0;
             background3.opacity = 0.4;

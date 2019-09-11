@@ -27,8 +27,8 @@ ApplicationWindow {
             width: applicationWindow.width - sidePanel.width
             height: applicationWindow.height
 
-            ChronometerView {
-                id: chronometerView
+            TimerView {
+                id: timerView
                 visible: true
                 Layout.fillHeight: false
                 Layout.fillWidth: true

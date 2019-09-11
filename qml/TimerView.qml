@@ -5,7 +5,7 @@ import QtQuick.Controls.Material 2.12
 Column {
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
-        text: chronometer.text
+        text: timer.text
         font.family: "Helvetica"
         font.pointSize: 55
         color:"black"
@@ -22,16 +22,16 @@ Column {
         Button {
             objectName: "startButton"
             text: qsTr("start!")
-            visible: chronometer.start_visibility
-            onClicked: chronometer.start_clock()
+            visible: timer.start_visibility
+            onClicked: timer.start_clock()
             Material.background: Material.Red
         }
         Button {
             objectName: "stopButton"
             text: qsTr("stop!")
-            visible: chronometer.stop_visibility
+            visible: timer.stop_visibility
             onClicked: {
-                chronometer.stop_clock(taskText.text);
+                timer.stop_clock(taskText.text);
             }
             Material.background: Material.Blue
         }
