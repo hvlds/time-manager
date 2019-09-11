@@ -3,9 +3,11 @@ from time import sleep
 from datetime import timedelta, datetime
 from models import Database, Task
 
+
 class ChronoWorker(QThread):
     on_start = Signal(object)
     on_stop = Signal(object)
+
     def __init__(self):
         QThread.__init__(self)
         self.running_flag = False
@@ -31,6 +33,7 @@ class ChronoWorker(QThread):
             "stop": self.date_stop
         }
         self.on_stop.emit(dates)
+
 
 class Chronometer(QObject):
     def __init__(self):
