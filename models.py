@@ -1,12 +1,15 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DATETIME
+from sqlalchemy.orm import sessionmaker
 
 class Database():
     def __init__(self):
         db_uri = "sqlite:///db.sqlite"
         self.engine = create_engine(db_uri)
         self.connection = self.engine.connect()
+        Session = sessionmaker(self.engine)
+        self.session = Session()
 
 db = Database()
 Base = declarative_base()

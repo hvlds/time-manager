@@ -30,7 +30,9 @@ Column {
             objectName: "stopButton"
             text: qsTr("stop!")
             visible: chronometer.stop_visibility
-            onClicked: chronometer.stop_clock()
+            onClicked: {
+                chronometer.stop_clock(taskText.text);
+            }
             Material.background: Material.Blue
         }
     }

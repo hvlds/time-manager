@@ -10,6 +10,6 @@ if __name__ == "__main__":
     chronometer = Chronometer()
     engine = QQmlApplicationEngine()
     engine.rootContext().setContextProperty("chronometer", chronometer)
-    engine.load(QUrl("view.qml"))
+    engine.load(QUrl("./qml/view.qml"))
 
     sys.exit(app.exec_())
