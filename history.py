@@ -6,11 +6,11 @@ class History(QObject):
     def __init__(self):
         QObject.__init__(self)
         self.tasks = dict()
+        self.db = Database()
         self.update()
 
     def update(self):
-        db = Database()
-        task_query = db.session.query(Task).all()
+        task_query = self.db.session.query(Task).all()
         for task in task_query:
             self.tasks[str(task.id)] = {
                 "description": task.description,
@@ -21,3 +21,10 @@ class History(QObject):
     @Slot(result='QVariant')
     def get_tasks(self):
         return self.tasks
+
+    @Slot(str)
+    def delete_task(self, index):
+        task = self.db.session.query(Task).filter_by(id=int(index))
+        task.delete()
+        self.db.session.commit()
+        self.update()

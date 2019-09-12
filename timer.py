@@ -2,6 +2,7 @@ from PySide2.QtCore import QObject, Signal, Slot, Property, QThread
 from time import sleep
 from datetime import timedelta, datetime
 from models import Database, Task
+from history import History
 
 
 class TimerWorker(QThread):
@@ -85,6 +86,8 @@ class Timer(QObject):
                         date_stop=dates["stop"])
         db.session.add(new_task)
         db.session.commit()
+        history = History()
+        history.update()
 
     @Slot()
     def start_clock(self):

@@ -8,7 +8,7 @@ ToolBar {
     width: 130
     height: applicationWindow.height
     Material.elevation: 1
-    Material.background: Material.Amber
+    Material.background: Material.Lime
 
     ToolButton {
         id: toolButton1
