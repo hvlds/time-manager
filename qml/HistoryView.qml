@@ -12,12 +12,15 @@ ListView {
         id: listModel
         Component.onCompleted: {
             var tasks = history.get_tasks()
-            for (var index in tasks) {
+            var count = 0;
+            for (var taskID in tasks) {
                 var taskObj = {
-                    "description": tasks[index]["description"],
-                    "id": index
+                    "description": tasks[taskID]["description"],
+                    "id": taskID,
+                    "index": count,
                 };
-                append(taskObj);
+                insert(count, taskObj);
+                count++;
             }
         }
     }
@@ -47,7 +50,7 @@ ListView {
                     Material.background: Material.Red
                     onClicked: {
                         history.delete_task(id);
-
+                        listModel.remove(index)
                     }
                 }
             }
