@@ -9,14 +9,22 @@ ToolBar {
     height: applicationWindow.height
     Material.elevation: 1
     Material.background: Material.Lime
-
+    Text{
+        y: 10
+        id:sidePanelTitel
+        text: " Time \n Manager"
+        font.family: "Roboto"
+        font.pointSize: 18
+        font.weight: Font.Light
+    }
     ToolButton {
         id: toolButton1
         width: toolBar.width
         icon.source: "../img/svg/new.svg"
         text: qsTr("Timer")
+        font.weight: Font.Light
         x:0
-        y:10
+        y:sidePanelTitel.height + sidePanelTitel.y + 10
         Rectangle
         {
             id: background1
@@ -54,6 +62,7 @@ ToolBar {
         width: toolBar.width
         icon.source: "../img/svg/history.svg"
         text: qsTr("History")
+        font.weight: Font.Light
         x:0
         y:toolButton1.y + toolButton1.height + 4
         Rectangle
@@ -93,6 +102,7 @@ ToolBar {
         width: toolBar.width
         icon.source: "../img/svg/pomodoro.svg"
         text: qsTr("Pomodoro")
+        font.weight: Font.Light
         x:0
         y:toolButton2.y + toolButton2.height + 4
         Rectangle

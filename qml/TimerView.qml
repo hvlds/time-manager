@@ -16,18 +16,26 @@ Column {
         anchors.horizontalCenter: parent.horizontalCenter
         width: (2/3) * applicationWindow.width
         placeholderText: qsTr("Enter task description")
+        Keys.onReturnPressed: {
+            if(startButton.visible == true){
+                timer.start_clock();
+            } else if(stopButton.visible == true){
+                timer.stop_clock(taskText.text);
+                taskListModel.update();
+            }
+        }
     }
     Row {
         anchors.horizontalCenter: parent.horizontalCenter
         Button {
-            objectName: "startButton"
+            id:"startButton"
             text: qsTr("start!")
             visible: timer.start_visibility
             onClicked: timer.start_clock()
             Material.background: Material.Red
         }
         Button {
-            objectName: "stopButton"
+            id: "stopButton"
             text: qsTr("stop!")
             visible: timer.stop_visibility
             onClicked: {
