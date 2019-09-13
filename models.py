@@ -32,4 +32,5 @@ class Task(Base):
             self.date_stop
         )
 
+
 Base.metadata.create_all(db.engine)

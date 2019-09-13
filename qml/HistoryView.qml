@@ -10,15 +10,30 @@ ListView {
     focus: true
     Layout.topMargin: 20
     model: taskListModel
+    ScrollBar.vertical: ScrollBar {
+        active: true
+    }
     delegate: Pane {
-        width: parent.width * (2/3)
+        //width: parent.width * (2/3)
         anchors.horizontalCenter: parent.horizontalCenter
         Material.elevation: 4
         RowLayout {
             anchors.fill: parent
-            Label {
-                text: name
+            Column {
+                Layout.rightMargin: 20
+                spacing: 2
+                Label {
+                    text: description
+                    font.weight: Font.Bold
+                }
+                Label {
+                    text: "start: " + date_start;
+                }
+                Label {
+                    text: "end: " + date_stop;
+                }
             }
+
             Row {
                 Layout.alignment:Qt.AlignRight;
                 spacing:5

@@ -7,16 +7,24 @@ class TaskListModel(QAbstractListModel):
         QAbstractListModel.__init__(self, engine)
         self.engine = engine
 
-        self._COLUMNS = (QByteArray(b'name'),
-                    QByteArray(b'id'),)
+        self._COLUMNS = (QByteArray(b'description'),
+                         QByteArray(b'id'),
+                         QByteArray(b'date_start'),
+                         QByteArray(b'date_stop'),)
         self.db = Database()
         self.task_query = list(self.db.session.query(Task).all())
 
     def data(self, index, role):
-        if role == self._COLUMNS.index('name'):
+        if role == self._COLUMNS.index('description'):
             return self.task_query[index.row()].description
         elif role == self._COLUMNS.index('id'):
             return self.task_query[index.row()].id
+        elif role == self._COLUMNS.index('date_start'):
+            date_formated = self.task_query[index.row()].date_start.strftime("%d/%m/%Y, %H:%M:%S")
+            return date_formated
+        elif role == self._COLUMNS.index('date_stop'):
+            date_formated = self.task_query[index.row()].date_stop.strftime("%d/%m/%Y, %H:%M:%S")
+            return date_formated
         return None
 
     @Slot(int)
