@@ -32,6 +32,7 @@ Column {
             visible: timer.stop_visibility
             onClicked: {
                 timer.stop_clock(taskText.text);
+                taskListModel.update()
             }
             Material.background: Material.Blue
         }

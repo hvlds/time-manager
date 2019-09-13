@@ -4,26 +4,12 @@ import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.13
 
 ListView {
+    id: myListView
     width: parent.width
     height: parent.height
     focus: true
     Layout.topMargin: 20
-    model: ListModel {
-        id: listModel
-        Component.onCompleted: {
-            var tasks = history.get_tasks()
-            var count = 0;
-            for (var taskID in tasks) {
-                var taskObj = {
-                    "description": tasks[taskID]["description"],
-                    "id": taskID,
-                    "index": count,
-                };
-                insert(count, taskObj);
-                count++;
-            }
-        }
-    }
+    model: taskListModel
     delegate: Pane {
         width: parent.width * (2/3)
         anchors.horizontalCenter: parent.horizontalCenter
@@ -31,7 +17,7 @@ ListView {
         RowLayout {
             anchors.fill: parent
             Label {
-                text: description
+                text: name
             }
             Row {
                 Layout.alignment:Qt.AlignRight;
@@ -49,12 +35,10 @@ ListView {
                     icon.source: "../img/svg/delete.svg"
                     Material.background: Material.Red
                     onClicked: {
-                        history.delete_task(id);
-                        listModel.remove(index)
+                        taskListModel.removeRow(id);
                     }
                 }
             }
-
         }
     }
 }
