@@ -9,6 +9,7 @@ ListView {
     height: parent.height
     focus: true
     Layout.topMargin: 20
+    Layout.bottomMargin: 20
     model: taskListModel
 
     ScrollBar.vertical: ScrollBar {
@@ -18,6 +19,7 @@ ListView {
         //width: parent.width * (2/3)
         anchors.horizontalCenter: parent.horizontalCenter
         Material.elevation: 4
+        Layout.fillWidth: true
         RowLayout {
             anchors.fill: parent
             Column {
@@ -26,6 +28,8 @@ ListView {
                 Label {
                     text: description
                     font.weight: Font.Bold
+                    wrapMode: Text.WordWrap
+                    width: parent.width
                 }
                 Label {
                     text: "duration: " + duration;

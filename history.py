@@ -28,7 +28,6 @@ class TaskListModel(QAbstractListModel):
             return date_formated
         elif role == self._COLUMNS.index('duration'):
             duration = self.task_query[index.row()].get_duration()
-            print(duration)
             return duration
         return None
 

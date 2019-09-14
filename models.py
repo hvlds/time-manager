@@ -37,5 +37,4 @@ class Task(Base):
         duration = str(self.date_stop - self.date_start)
         return duration
 
-
 Base.metadata.create_all(db.engine)
