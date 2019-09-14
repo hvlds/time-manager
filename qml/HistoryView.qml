@@ -10,6 +10,7 @@ ListView {
     focus: true
     Layout.topMargin: 20
     model: taskListModel
+
     ScrollBar.vertical: ScrollBar {
         active: true
     }
@@ -25,6 +26,9 @@ ListView {
                 Label {
                     text: description
                     font.weight: Font.Bold
+                }
+                Label {
+                    text: "duration: " + duration;
                 }
                 Label {
                     text: "start: " + date_start;

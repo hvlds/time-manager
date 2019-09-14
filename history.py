@@ -10,7 +10,8 @@ class TaskListModel(QAbstractListModel):
         self._COLUMNS = (QByteArray(b'description'),
                          QByteArray(b'id'),
                          QByteArray(b'date_start'),
-                         QByteArray(b'date_stop'),)
+                         QByteArray(b'date_stop'),
+                         QByteArray(b'duration'),)
         self.db = Database()
         self.task_query = list(self.db.session.query(Task).all())
 
@@ -25,6 +26,10 @@ class TaskListModel(QAbstractListModel):
         elif role == self._COLUMNS.index('date_stop'):
             date_formated = self.task_query[index.row()].date_stop.strftime("%d/%m/%Y, %H:%M:%S")
             return date_formated
+        elif role == self._COLUMNS.index('duration'):
+            duration = self.task_query[index.row()].get_duration()
+            print(duration)
+            return duration
         return None
 
     @Slot(int)

@@ -40,7 +40,7 @@ ApplicationWindow {
             HistoryView {
                 id: historyView
                 visible: false
-                Layout.fillHeight: false
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 transformOrigin: Item.Center

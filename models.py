@@ -2,9 +2,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DATETIME
 from sqlalchemy.orm import sessionmaker
+from datetime import timedelta
 
 
-class Database():
+class Database:
     def __init__(self):
         db_uri = "sqlite:///db.sqlite"
         self.engine = create_engine(db_uri)
@@ -31,6 +32,10 @@ class Task(Base):
             self.date_start,
             self.date_stop
         )
+
+    def get_duration(self):
+        duration = str(self.date_stop - self.date_start)
+        return duration
 
 
 Base.metadata.create_all(db.engine)
