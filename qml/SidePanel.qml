@@ -1,11 +1,13 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
+import QtQuick 2.13
+import QtQuick.Controls 2.13
+import QtQuick.Controls.Material 2.13
 import QtQuick.Layouts 1.13
-import QtQuick.Controls.Material 2.12
 
 ToolBar {
     id: toolBar
-    width: 130
+    width: 120
+    x:0
+    y:0
     height: applicationWindow.height
     Material.elevation: 1
     Material.background: Material.Lime
@@ -14,13 +16,15 @@ ToolBar {
         id:sidePanelTitel
         text: " Time \n Manager"
         font.family: "Roboto"
-        font.pointSize: 18
+        font.pointSize: 17
         font.weight: Font.Light
     }
     ToolButton {
         id: toolButton1
         width: toolBar.width
         icon.source: "../img/svg/new.svg"
+        icon.height: 15
+        icon.width: 15
         text: qsTr("Timer")
         font.weight: Font.Light
         x:0
@@ -61,6 +65,8 @@ ToolBar {
         id: toolButton2
         width: toolBar.width
         icon.source: "../img/svg/history.svg"
+        icon.height: 15
+        icon.width: 15
         text: qsTr("History")
         font.weight: Font.Light
         x:0
@@ -101,6 +107,8 @@ ToolBar {
         id: toolButton3
         width: toolBar.width
         icon.source: "../img/svg/pomodoro.svg"
+        icon.height: 15
+        icon.width: 15
         text: qsTr("Pomodoro")
         font.weight: Font.Light
         x:0

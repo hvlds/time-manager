@@ -1,36 +1,48 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
+import QtQuick 2.13
+import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
-import QtQuick.Controls.Material 2.12
+import QtQuick.Controls.Material 2.13
 
 ApplicationWindow {
     id: applicationWindow
     visible: true
-    width: 600
+    width: 1000
     height: 600
     minimumWidth: 600
     minimumHeight: 300
     title: "Time Manager"
 
-    Row {
+    SplitView {
         id: row
         x: 0
         y: 0
-
-        SidePanel{
-            id: sidePanel
-            visible: true
+        anchors.fill: parent
+        orientation: Qt.Horizontal
+        Rectangle{
+            id: panel
+            SplitView.minimumWidth: sidePanel.width
+            SplitView.maximumWidth: sidePanel.width
+            implicitWidth: sidePanel.width
+            width: sidePanel.width
+            color: "transparent"
+            SidePanel{
+                id: sidePanel
+                visible: true
+            }
         }
 
-        ColumnLayout {
+        Rectangle {
             id: columnLayout
+            SplitView.maximumWidth: applicationWindow.width - sidePanel.width
+            implicitWidth: applicationWindow.width - sidePanel.width
             width: applicationWindow.width - sidePanel.width
-            height: applicationWindow.height
+            //Layout.fillWidth: true
 
+            height: applicationWindow.height
             TimerView {
                 id: timerView
                 visible: true
-                Layout.fillHeight: false
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 transformOrigin: Item.Center
@@ -42,9 +54,9 @@ ApplicationWindow {
                 visible: false
                 Layout.fillHeight: true
                 Layout.fillWidth: true
+                z: -1
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 transformOrigin: Item.Center
-                spacing: 10
             }
         }
 

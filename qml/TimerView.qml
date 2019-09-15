@@ -1,13 +1,16 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
-import QtQuick.Controls.Material 2.12
+import QtQuick 2.13
+import QtQuick.Controls 2.13
+import QtQuick.Controls.Material 2.13
+import QtQuick.Layouts 1.13
 
 Column {
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.verticalCenter: parent.verticalCenter
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
         text: timer.text
         font.family: "Helvetica"
-        font.pointSize: 55
+        font.pointSize: 50
         color:"black"
     }
     TextField {
