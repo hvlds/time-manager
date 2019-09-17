@@ -54,7 +54,14 @@ ApplicationWindow {
                 visible: false
                 Layout.fillHeight: true
                 Layout.fillWidth: true
-                z: -1
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                transformOrigin: Item.Center
+            }
+            PomodoroView {
+                id:pomodoroView
+                visible: false
+                Layout.fillHeight: true
+                Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 transformOrigin: Item.Center
             }

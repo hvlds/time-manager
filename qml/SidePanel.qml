@@ -56,6 +56,7 @@ ToolBar {
         onClicked: {
             timerView.visible = true;
             historyView.visible = false;
+            pomodorView.visible = false;
             background1.opacity = 0.4;
             background2.opacity = 0;
             background3.opacity = 0;
@@ -81,6 +82,7 @@ ToolBar {
         onClicked:{
             timerView.visible = false;
             historyView.visible = true;
+            pomodorView.visible = false;
             background1.opacity = 0;
             background2.opacity = 0.4;
             background3.opacity = 0;
@@ -140,6 +142,7 @@ ToolBar {
         onClicked:{
             timerView.visible = false;
             historyView.visible = false;
+            pomodoroView.visible = true;
             background1.opacity = 0;
             background2.opacity = 0;
             background3.opacity = 0.4;

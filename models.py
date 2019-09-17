@@ -37,4 +37,15 @@ class Task(Base):
         duration = str(self.date_stop - self.date_start)
         return duration
 
+
+class PomodoroTask(Base):
+    __tablename__ = "pomodoro"
+    id = Column(Integer, primary_key=True)
+    date = Column(DATETIME)
+
+    def __str__(self):
+        return "Date:{}".format(
+            self.date
+        )
+
 Base.metadata.create_all(db.engine)
