@@ -19,4 +19,4 @@ First of all, we recommend you to create and activate a new environment (you can
 
 ## License
 
-This project is licensed under the GNU GPL version 3 &mdash; see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the GNU GPL version 3 &mdash; see the [LICENSE](LICENSE) file for details
