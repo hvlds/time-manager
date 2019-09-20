@@ -1,0 +1,32 @@
+# Site settings
+title: Time Manager
+#email: contact@me.com
+description: "Time Manager is an all-in-one productivity tool, that will help you get more of your day by knowing how you are using your time."
+
+
+# Team names, titles and social links
+people:
+- name: Hernán Valdés
+  pic: 1
+  position: Ninja Developer
+  social:
+    - title: github
+      url: https://github.com/hfvaldesg
+    
+- name: Javier Carrasco
+  pic: 2
+  position: Jedi Developer
+  social:
+    - title: github
+      url: https://github.com/javiercmh
+    - title: linkedin
+      url: https://www.linkedin.com/in/ja-vier/
+
+# Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
+social:
+  - title: github
+    url: https://github.com/hfvaldesg/time-manager
+
+# Build settings
+markdown: kramdown
+permalink: pretty
