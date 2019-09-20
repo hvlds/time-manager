@@ -11,14 +11,14 @@ description: "Time Manager is an all-in-one productivity tool, that will help yo
 people:
 - name: Hernán Valdés
   pic: 1
-  position: Lead Developer
+  position: Ninja Developer
   social:
     - title: github
       url: https://github.com/hfvaldesg
     
 - name: Javier Carrasco
   pic: 2
-  position: Lead Developer 2
+  position: Jedi Developer
   social:
     - title: github
       url: https://github.com/javiercmh
