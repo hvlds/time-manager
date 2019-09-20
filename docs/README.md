@@ -1,6 +1,6 @@
 # Time manager
 
-This app is meant to be an all-in-one productivity tool, that will help you get more of your day by knowing how you are using your time.
+This app is an all-in-one productivity tool, that will help you get more of your day by knowing how you are using your time.
 
 ## Getting Started
 
