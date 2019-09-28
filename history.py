@@ -27,7 +27,7 @@ class TaskListModel(QAbstractListModel):
             date_formated = self.task_query[index.row()].date_stop.strftime("%d/%m/%Y, %H:%M:%S")
             return date_formated
         elif role == self._COLUMNS.index('duration'):
-            duration = self.task_query[index.row()].get_duration()
+            duration = self.task_query[index.row()].get_duration().split('.')[0]  # remove decimals
             return duration
         return None
 

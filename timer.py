@@ -19,7 +19,7 @@ class TimerWorker(QThread):
         self.running_flag = True
         self.date_start = datetime.now()
         while self.running_flag:
-            general_datetime = str(timedelta(seconds=self.seconds))
+            general_datetime = str(timedelta(seconds=self.seconds))  # seconds elapsed (to be displayed)
             self.on_start.emit(general_datetime)
             self.seconds += 1
             sleep(1)
@@ -73,11 +73,11 @@ class Timer(QObject):
         self._stop_visibility = new_visibility
         self.on_stop_visibility.emit()
 
-    @Slot(object)
+    @Slot(str)
     def on_start(self, value):
-        self._set_text(str(value))
+        self._set_text(value)
 
-    @Slot(object)
+    @Slot(dict)
     def on_stop(self, dates):
         db = Database()
         new_task = Task(description=self._get_description(),
