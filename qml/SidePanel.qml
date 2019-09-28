@@ -11,9 +11,9 @@ ToolBar {
     height: applicationWindow.height
     Material.elevation: 1
     Material.background: Material.Lime
-    Text{
+    Text {
         y: 10
-        id:sidePanelTitel
+        id:sidePanelTitle
         text: " Time \n Manager"
         font.family: "Roboto"
         font.pointSize: 17
@@ -28,7 +28,7 @@ ToolBar {
         text: qsTr("Timer")
         font.weight: Font.Light
         x:0
-        y:sidePanelTitel.height + sidePanelTitel.y + 10
+        y:sidePanelTitle.height + sidePanelTitle.y + 10
         Rectangle
         {
             id: background1
@@ -36,17 +36,17 @@ ToolBar {
             opacity: 0.4
             color: "grey"
         }
-        contentItem: Item{
-            Row{
+        contentItem: Item {
+            Row {
                 spacing: 10
                 anchors.fill: parent
-                Image{
+                Image {
                     source: toolButton1.icon.source
                     width: toolButton1.icon.width
                     height: toolButton1.icon.height
                     anchors.verticalCenter: parent.verticalCenter
                 }
-                Text{
+                Text {
                     text: toolButton1.text
                     font: toolButton1.font
                     anchors.verticalCenter: parent.verticalCenter
@@ -79,7 +79,7 @@ ToolBar {
             opacity: 0
             color: "grey"
         }
-        onClicked:{
+        onClicked: {
             timerView.visible = false;
             historyView.visible = true;
             pomodoroView.visible = false;
@@ -87,17 +87,17 @@ ToolBar {
             background2.opacity = 0.4;
             background3.opacity = 0;
         }
-        contentItem: Item{
-            Row{
+        contentItem: Item {
+            Row {
                 anchors.fill: parent
                 spacing: 10
-                Image{
+                Image {
                     source: toolButton2.icon.source
                     width: toolButton2.icon.width
                     height: toolButton2.icon.height
                     anchors.verticalCenter: parent.verticalCenter
                 }
-                Text{
+                Text {
                     text: toolButton2.text
                     font: toolButton2.font
                     anchors.verticalCenter: parent.verticalCenter
@@ -139,7 +139,7 @@ ToolBar {
                 }
             }
         }
-        onClicked:{
+        onClicked: {
             timerView.visible = false;
             historyView.visible = false;
             pomodoroView.visible = true;

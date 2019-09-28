@@ -6,8 +6,11 @@ import QtQuick.Layouts 1.13
 Column {
     anchors.horizontalCenter: parent.horizontalCenter
     anchors.verticalCenter: parent.verticalCenter
-    Text{
+    Text {
         text: pomodoro.text
+        font.family: "Helvetica"
+        font.pointSize: 50
+        color:"black"
     }
     Row {
         anchors.horizontalCenter: parent.horizontalCenter
