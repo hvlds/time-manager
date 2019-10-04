@@ -109,3 +109,6 @@ db.sqlite
 
 # visual studio stuff
 .vscode/
+
+# intellij stuff
+.idea/
