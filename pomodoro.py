@@ -1,6 +1,7 @@
 from PySide2.QtCore import QObject, Signal, Slot, QThread, Property
 from time import sleep
-from datetime import timedelta
+from datetime import timedelta, datetime
+from models import Database, PomodoroTask
 
 
 class PomodoroWorker(QThread):
@@ -27,7 +28,8 @@ class PomodoroWorker(QThread):
     def stop(self):
         self.running_flag = False
         self.time = timedelta(minutes=self.minutes)
-        self.on_stop.emit(timedelta(minutes=self.minutes))
+        date = datetime.now()
+        self.on_stop.emit(date)
 
 
 class Pomodoro(QObject):
@@ -67,8 +69,12 @@ class Pomodoro(QObject):
         self._set_text(str(value))
     
     @Slot(object)
-    def on_stop(self, value):
-        self._set_text(str(value))
+    def on_stop(self, date):
+        self._set_text(str(timedelta(minutes=self.minutes)))
+        db = Database()
+        new_pomodoro = PomodoroTask(date=date)
+        db.session.add(new_pomodoro)
+        db.session.commit()        
 
     @Slot()
     def start_clock(self):
@@ -80,6 +86,7 @@ class Pomodoro(QObject):
     def stop_clock(self):
         self._set_start_visibility(True)
         self._set_stop_visibility(False)
+        self._set_text(timedelta(minutes=self.minutes))
         self.thread.stop()
         self.thread.quit()
 
