@@ -1,4 +1,4 @@
-from PySide2.QtCore import QObject, Signal, QThread, Property
+from PySide2.QtCore import QObject, Signal, Slot, QThread, Property
 from time import sleep
 from datetime import timedelta
 
@@ -11,7 +11,7 @@ class PomodoroWorker(QThread):
         QThread.__init__(self)
         self.running_flag = False
         self.minutes = minutes
-        self.time = timedelta(minutes=minutes)
+        self.time = timedelta(minutes=self.minutes)
 
     def run(self):
         self.running_flag = True
@@ -21,12 +21,13 @@ class PomodoroWorker(QThread):
                 self.time = self.time - timedelta(seconds=1)
                 sleep(1)
             else:
-                self.running_flag = False
+                self.running_flag = False                
                 break
 
     def stop(self):
         self.running_flag = False
         self.time = timedelta(minutes=self.minutes)
+        self.on_stop.emit(timedelta(minutes=self.minutes))
 
 
 class Pomodoro(QObject):
@@ -35,6 +36,8 @@ class Pomodoro(QObject):
         self._text = "0:25:00"
         self.minutes = 25
         self.thread = PomodoroWorker(self.minutes)
+        self.thread.on_start.connect(self.on_start)
+        self.thread.on_stop.connect(self.on_stop)
         self._start_visibility = True
         self._stop_visibility = False
 
@@ -43,18 +46,42 @@ class Pomodoro(QObject):
 
     def _set_text(self,value):
         self._text = value
+        self.on_text.emit()
 
     def _get_start_visibility(self):
         return self._start_visibility
 
     def _set_start_visibility(self, value):
         self._start_visibility = value
+        self.on_start_visibility.emit()
 
     def _get_stop_visibility(self):
         return  self._stop_visibility
 
     def _set_stop_visibility(self, value):
         self._stop_visibility = value
+        self.on_stop_visibility.emit()
+
+    @Slot(object)
+    def on_start(self, value):
+        self._set_text(str(value))
+    
+    @Slot(object)
+    def on_stop(self, value):
+        self._set_text(str(value))
+
+    @Slot()
+    def start_clock(self):
+        self._set_start_visibility(False)
+        self._set_stop_visibility(True)
+        self.thread.start()     
+
+    @Slot()
+    def stop_clock(self):
+        self._set_start_visibility(True)
+        self._set_stop_visibility(False)
+        self.thread.stop()
+        self.thread.quit()
 
     on_start_visibility = Signal()
     on_stop_visibility = Signal()

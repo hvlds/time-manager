@@ -15,16 +15,18 @@ Column {
             id:"startPomodoro"
             text: qsTr("start!")
             visible: pomodoro.start_visibility
-            //onClicked: pomodoro.start_clock()
+            onClicked: {
+                pomodoro.start_clock();
+            }
             Material.background: Material.Red
         }
         Button {
             id: "stopPomodoro"
             text: qsTr("stop!")
             visible: pomodoro.stop_visibility
-//            onClicked: {
-//                pomodoro.stop_clock();
-//            }
+            onClicked: {
+                pomodoro.stop_clock();
+            }
             Material.background: Material.Blue
         }
     }
