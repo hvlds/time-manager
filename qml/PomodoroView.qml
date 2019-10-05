@@ -8,6 +8,9 @@ Column {
     anchors.verticalCenter: parent.verticalCenter
     Text{
         text: pomodoro.text
+        font.family: "Helvetica"
+        font.pointSize: 50
+        color:"black"
     }
     Row {
         anchors.horizontalCenter: parent.horizontalCenter
