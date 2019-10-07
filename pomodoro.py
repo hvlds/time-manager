@@ -6,7 +6,8 @@ from models import Database, PomodoroTask
 
 class PomodoroWorker(QThread):
     on_start = Signal(object)
-    on_stop = Signal(object)
+    on_stop = Signal()
+    on_completed = Signal(object)
 
     def __init__(self, minutes):
         QThread.__init__(self)
@@ -22,14 +23,15 @@ class PomodoroWorker(QThread):
                 self.time = self.time - timedelta(seconds=1)
                 sleep(1)
             else:
-                self.running_flag = False                
+                self.running_flag = False
+                date = datetime.now()
+                self.on_completed.emit(date)                
                 break
 
     def stop(self):
         self.running_flag = False
-        self.time = timedelta(minutes=self.minutes)
-        date = datetime.now()
-        self.on_stop.emit(date)
+        self.time = timedelta(minutes=self.minutes)        
+        self.on_stop.emit()
 
 
 class Pomodoro(QObject):
@@ -40,6 +42,7 @@ class Pomodoro(QObject):
         self.thread = PomodoroWorker(self.minutes)
         self.thread.on_start.connect(self.on_start)
         self.thread.on_stop.connect(self.on_stop)
+        self.thread.on_completed.connect(self.on_completed)
         self._start_visibility = True
         self._stop_visibility = False
 
@@ -68,9 +71,12 @@ class Pomodoro(QObject):
     def on_start(self, value):
         self._set_text(str(value))
     
-    @Slot(object)
-    def on_stop(self, date):
+    @Slot()
+    def on_stop(self):
         self._set_text(str(timedelta(minutes=self.minutes)))
+
+    @Slot(object)
+    def on_completed(self, date):
         db = Database()
         new_pomodoro = PomodoroTask(date=date)
         db.session.add(new_pomodoro)
