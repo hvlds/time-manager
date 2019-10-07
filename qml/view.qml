@@ -32,7 +32,6 @@ ApplicationWindow {
         width: applicationWindow.width - sidePanel.width
         //Layout.fillWidth: true
         anchors.left: panel.right
-        anchors.margins: panel.right
         anchors.leftMargin: 5        
 
         height: applicationWindow.height

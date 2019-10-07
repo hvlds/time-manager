@@ -39,12 +39,22 @@ class Pomodoro(QObject):
         QObject.__init__(self)
         self._text = "0:25:00"
         self.minutes = 25
+        self.db = Database()
+        self.count_total = self.count()
+        self.count_today = self.count(date=datetime.today())
         self.thread = PomodoroWorker(self.minutes)
         self.thread.on_start.connect(self.on_start)
         self.thread.on_stop.connect(self.on_stop)
         self.thread.on_completed.connect(self.on_completed)
         self._start_visibility = True
         self._stop_visibility = False
+    
+    def count(self, date=None):
+        if date:
+            count = self.db.session.query(PomodoroTask).filter_by(date=date).count()
+        else:
+            count = self.db.session.query(PomodoroTask).count()
+        return count
 
     def _get_text(self):
         return self._text
@@ -77,10 +87,9 @@ class Pomodoro(QObject):
 
     @Slot(object)
     def on_completed(self, date):
-        db = Database()
         new_pomodoro = PomodoroTask(date=date)
-        db.session.add(new_pomodoro)
-        db.session.commit()        
+        self.db.session.add(new_pomodoro)
+        self.db.session.commit()                  
 
     @Slot()
     def start_clock(self):

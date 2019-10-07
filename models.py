@@ -47,5 +47,6 @@ class PomodoroTask(Base):
         return "Date:{}".format(
             self.date
         )
+       
 
 Base.metadata.create_all(db.engine)
