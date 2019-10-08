@@ -2,6 +2,7 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Controls.Material 2.13
 import QtQuick.Layouts 1.13
+import QtCharts 2.3
 
 SplitView{
     id: historyGrid
@@ -23,13 +24,18 @@ SplitView{
             active: true
         }
     }
-    Rectangle {
-        color: "grey"
+   ChartView {
         width: columnLayout.width / 2
         implicitWidth: columnLayout.width / 2
         Layout.fillHeight: true
+        PieSeries {
+            id: pieSeries
+            PieSlice { label: "eaten"; value: 94.9 }
+            PieSlice { label: "not yet eaten"; value: 5.1 }
+        }
     }
 
-
+    
+    
 }
 

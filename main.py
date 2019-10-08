@@ -1,6 +1,6 @@
 from PySide2.QtCore import QUrl
 from PySide2.QtQml import QQmlApplicationEngine
-from PySide2 import QtGui
+from PySide2 import QtGui, QtWidgets
 import sys
 from timer import Timer
 from pomodoro import Pomodoro
@@ -8,7 +8,8 @@ from history import TaskListModel
 
 if __name__ == "__main__":
     sys.argv += ["--style", "material"]
-    app = QtGui.QGuiApplication(sys.argv)
+    # app = QtGui.QGuiApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     timer = Timer()
     pomodoro = Pomodoro()
     engine = QQmlApplicationEngine()
