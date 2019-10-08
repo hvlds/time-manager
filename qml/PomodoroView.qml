@@ -13,13 +13,14 @@ Column {
         color:"black"
     }
     Row {
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.horizontalCenter: parent.horizontalCenter        
         Button {
             id:"startPomodoro"
             text: qsTr("start!")
             visible: pomodoro.start_visibility
             onClicked: {
                 pomodoro.start_clock();
+                popupPomodoroSettings.open();
             }
             Material.background: Material.Red
         }
@@ -33,5 +34,41 @@ Column {
             Material.background: Material.Blue
         }
     }
+    Popup {
+        id: popupPomodoroSettings
+        modal: true
+        focus: true
+        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+        Pane {
+            Material.elevation: 1
+            ColumnLayout{
+                RowLayout{
+                    Layout.alignment: Qt.AlignLeft
+                    Text{
+                        text: qsTr("Pomodoro: ")
+                    } 
+                    TextField {
+                        inputMethodHints: Qt.ImhDigitsOnly
+                    }
+                }
+                RowLayout{
+                    Layout.alignment: Qt.AlignLeft
+                    Text{
+                        text: qsTr("Pause: ")
+                    } 
+                    TextField {
+                        inputMethodHints: Qt.ImhDigitsOnly
+                    }
+                }
+                CheckBox {
+                    Layout.alignment: Qt.AlignLeft
+                    text: qsTr("auto Pause")
+                    checked: true
+                }            
+            }        
+        }
+    }
+    
+
 
 }
