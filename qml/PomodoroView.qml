@@ -13,14 +13,14 @@ Column {
         color:"black"
     }
     Row {
-        anchors.horizontalCenter: parent.horizontalCenter        
+        anchors.horizontalCenter: parent.horizontalCenter
+        padding: 10        
         Button {
             id:"startPomodoro"
             text: qsTr("start!")
             visible: pomodoro.start_visibility
             onClicked: {
                 pomodoro.start_clock();
-                popupPomodoroSettings.open();
             }
             Material.background: Material.Red
         }
@@ -33,19 +33,33 @@ Column {
             }
             Material.background: Material.Blue
         }
+        Button {
+            icon.source: "../img/svg/settings.svg"
+            background: Rectangle {
+                color: "transparent"
+            }
+            onClicked: {
+                popupPomodoroSettings.open();
+            }
+        }
     }
     Popup {
         id: popupPomodoroSettings
         modal: true
         focus: true
-        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent        
         Pane {
             Material.elevation: 1
             ColumnLayout{
+                Text {
+                    text: qsTr("Settings")
+                    font.weight: Font.DemiBold
+                    font.pointSize: 17
+                }
                 RowLayout{
                     Layout.alignment: Qt.AlignLeft
                     Text{
-                        text: qsTr("Pomodoro: ")
+                        text: qsTr("Pomodoro length: ")
                     } 
                     TextField {
                         inputMethodHints: Qt.ImhDigitsOnly
@@ -54,7 +68,7 @@ Column {
                 RowLayout{
                     Layout.alignment: Qt.AlignLeft
                     Text{
-                        text: qsTr("Pause: ")
+                        text: qsTr("Pause length: ")
                     } 
                     TextField {
                         inputMethodHints: Qt.ImhDigitsOnly
