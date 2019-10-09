@@ -66,6 +66,7 @@ Column {
                     } 
                     TextField {
                         id: "pomodoroLength"
+                        text: pomodoro.pomodoro_length
                         inputMethodHints: Qt.ImhDigitsOnly
                         validator: IntValidator { 
                                 bottom:0; top: 120
@@ -79,6 +80,7 @@ Column {
                     } 
                     TextField {
                         id: "pauseLength"
+                        text: pomodoro.pause_length
                         inputMethodHints: Qt.ImhDigitsOnly
                         validator: IntValidator { 
                                 bottom:0; top: 120
@@ -96,7 +98,16 @@ Column {
                     Layout.alignment: Qt.AlignHCenter
                     Material.background: Material.Cyan
                     onClicked: {
-                        pomodoro.save_settings(pomodoroLength.text, pauseLength.text, hasAutoPause.checked);
+                        var pomodoroLengthTemp = pomodoroLength.text;
+                        var pauseLengthTemp = pauseLength.text;
+                        var hasAutoPauseTemp = hasAutoPause.checked;
+                        if(pomodoroLengthTemp === ""){
+                            pomodoroLengthTemp = 25;
+                        } 
+                        if(pauseLengthTemp === ""){
+                            pauseLengthTemp = 5;
+                        }
+                        pomodoro.save_settings(pomodoroLengthTemp, pauseLengthTemp, hasAutoPauseTemp);
                     }
                 }           
             }        
