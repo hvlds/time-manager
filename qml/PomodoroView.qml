@@ -14,7 +14,8 @@ Column {
     }
     Row {
         anchors.horizontalCenter: parent.horizontalCenter
-        padding: 10        
+        padding: 10 
+        spacing: 15      
         Button {
             id:"startPomodoro"
             text: qsTr("start!")
@@ -35,9 +36,11 @@ Column {
         }
         Button {
             icon.source: "../img/svg/settings.svg"
+            // Material.background: Material.Grey
             background: Rectangle {
                 color: "transparent"
             }
+            
             onClicked: {
                 popupPomodoroSettings.open();
             }
@@ -63,6 +66,9 @@ Column {
                     } 
                     TextField {
                         inputMethodHints: Qt.ImhDigitsOnly
+                        validator: IntValidator { 
+                                bottom:0; top: 120
+                            }
                     }
                 }
                 RowLayout{
@@ -72,13 +78,24 @@ Column {
                     } 
                     TextField {
                         inputMethodHints: Qt.ImhDigitsOnly
+                        validator: IntValidator { 
+                                bottom:0; top: 120
+                            }
                     }
                 }
                 CheckBox {
                     Layout.alignment: Qt.AlignLeft
                     text: qsTr("auto Pause")
                     checked: true
-                }            
+                } 
+                Button {
+                    text: qsTr("save")
+                    Layout.alignment: Qt.AlignHCenter
+                    Material.background: Material.Cyan
+                    onClicked: {
+
+                    }
+                }           
             }        
         }
     }
