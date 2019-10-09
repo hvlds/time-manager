@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, DATETIME
+from sqlalchemy import Column, Integer, String, DATETIME, Boolean
 from sqlalchemy.orm import sessionmaker
 from datetime import timedelta
 
@@ -47,6 +47,13 @@ class PomodoroTask(Base):
         return "Date:{}".format(
             self.date
         )
+
+class PomodoroSettings(Base):
+    __tablename__ = "pomodoroSettings"
+    id = Column(Integer, primary_key=True)
+    task_length = Column(Integer)
+    pause_length = Column(Integer)
+    has_auto_pause = Column(Boolean)
        
 
 Base.metadata.create_all(db.engine)
