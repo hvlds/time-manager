@@ -1,7 +1,7 @@
 from PySide2.QtCore import QObject, Signal, Slot, QThread, Property
 from time import sleep
 from datetime import timedelta, datetime
-from models import Database, PomodoroTask
+from models import Database, PomodoroTask, PomodoroSettings
 
 
 class PomodoroWorker(QThread):
@@ -104,6 +104,16 @@ class Pomodoro(QObject):
         self._set_text(timedelta(minutes=self.minutes))
         self.thread.stop()
         self.thread.quit()
+    
+    @Slot(str, str, bool)
+    def save_settings(self, pomodoro_length, pause_length, has_auto_pause):
+        new_settings = PomodoroSettings(
+            pomodoro_length=int(pomodoro_length),
+            pause_length=int(pause_length),
+            has_auto_pause=bool(has_auto_pause)
+        )
+        self.db.session.add(new_settings)
+        self.db.session.commit()   
 
     on_start_visibility = Signal()
     on_stop_visibility = Signal()

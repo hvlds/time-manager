@@ -65,6 +65,7 @@ Column {
                         text: qsTr("Pomodoro length: ")
                     } 
                     TextField {
+                        id: "pomodoroLength"
                         inputMethodHints: Qt.ImhDigitsOnly
                         validator: IntValidator { 
                                 bottom:0; top: 120
@@ -77,6 +78,7 @@ Column {
                         text: qsTr("Pause length: ")
                     } 
                     TextField {
+                        id: "pauseLength"
                         inputMethodHints: Qt.ImhDigitsOnly
                         validator: IntValidator { 
                                 bottom:0; top: 120
@@ -84,6 +86,7 @@ Column {
                     }
                 }
                 CheckBox {
+                    id: "hasAutoPause"
                     Layout.alignment: Qt.AlignLeft
                     text: qsTr("auto Pause")
                     checked: true
@@ -93,7 +96,7 @@ Column {
                     Layout.alignment: Qt.AlignHCenter
                     Material.background: Material.Cyan
                     onClicked: {
-
+                        pomodoro.save_settings(pomodoroLength.text, pauseLength.text, hasAutoPause.checked);
                     }
                 }           
             }        

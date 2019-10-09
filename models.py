@@ -51,7 +51,7 @@ class PomodoroTask(Base):
 class PomodoroSettings(Base):
     __tablename__ = "pomodoroSettings"
     id = Column(Integer, primary_key=True)
-    task_length = Column(Integer)
+    pomodoro_length = Column(Integer)
     pause_length = Column(Integer)
     has_auto_pause = Column(Boolean)
        
