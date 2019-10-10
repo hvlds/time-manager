@@ -36,16 +36,12 @@ class PomodoroWorker(QThread):
 
 class Pomodoro(QObject):
     def __init__(self):
-        QObject.__init__(self)
-        self._text = "0:25:00"
-        self.minutes = 25
+        QObject.__init__(self)        
         self.db = Database()
         self.count_total = self.count()
         self.count_today = self.count(date=datetime.today())
-        self.thread = PomodoroWorker(self.minutes)
-        self.thread.on_start.connect(self.on_start)
-        self.thread.on_stop.connect(self.on_stop)
-        self.thread.on_completed.connect(self.on_completed)
+        
+        # Shared properties with QML
         self._start_visibility = True
         self._stop_visibility = False
         self._pomodoro_length = None
@@ -54,6 +50,15 @@ class Pomodoro(QObject):
 
         # Check default settings in DB. If there is none settings, create a default one.
         self.default_settings()
+
+        # Set starting time text after reading default values
+        self._text = str(timedelta(minutes=self._pomodoro_length))
+
+        # Pomodoro Thread
+        self.thread = PomodoroWorker(self._pomodoro_length)
+        self.thread.on_start.connect(self.on_start)
+        self.thread.on_stop.connect(self.on_stop)
+        self.thread.on_completed.connect(self.on_completed)
     
     def count(self, date=None):
         if date:
@@ -65,7 +70,7 @@ class Pomodoro(QObject):
     def _get_text(self):
         return self._text
 
-    def _set_text(self,value):
+    def _set_text(self, value):
         self._text = value
         self.on_text.emit()
 
@@ -82,7 +87,7 @@ class Pomodoro(QObject):
     def _set_stop_visibility(self, value):
         self._stop_visibility = value
         self.on_stop_visibility.emit()
-    
+
     def _get_pomodoro_length(self):
         return self._pomodoro_length
     
@@ -98,7 +103,7 @@ class Pomodoro(QObject):
     
     @Slot()
     def on_stop(self):
-        self._set_text(str(timedelta(minutes=self.minutes)))
+        self._set_text(str(timedelta(minutes=self._pomodoro_length)))
 
     @Slot(object)
     def on_completed(self, date):
@@ -116,7 +121,7 @@ class Pomodoro(QObject):
     def stop_clock(self):
         self._set_start_visibility(True)
         self._set_stop_visibility(False)
-        self._set_text(timedelta(minutes=self.minutes))
+        self._set_text(timedelta(minutes=self._pomodoro_length))
         self.thread.stop()
         self.thread.quit()
     
@@ -147,7 +152,8 @@ class Pomodoro(QObject):
             has_auto_pause=bool(has_auto_pause)
         )
         self.db.session.add(new_settings)
-        self.db.session.commit()   
+        self.db.session.commit()
+        self._set_text(str(timedelta(minutes=int(pomodoro_length))))   
 
     on_start_visibility = Signal()
     on_stop_visibility = Signal()

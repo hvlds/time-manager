@@ -108,6 +108,7 @@ Column {
                             pauseLengthTemp = 5;
                         }
                         pomodoro.save_settings(pomodoroLengthTemp, pauseLengthTemp, hasAutoPauseTemp);
+                        popupPomodoroSettings.close();
                     }
                 }           
             }        

@@ -1,7 +1,7 @@
+import sys
 from PySide2.QtCore import QUrl
 from PySide2.QtQml import QQmlApplicationEngine
 from PySide2 import QtGui, QtWidgets
-import sys
 from timer import Timer
 from pomodoro import Pomodoro
 from history import TaskListModel
