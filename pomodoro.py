@@ -37,11 +37,11 @@ class PomodoroWorker(QThread):
 class Pomodoro(QObject):
     def __init__(self):
         QObject.__init__(self)        
-        self.db = Database()
-        self.count_total = self.count()
-        self.count_today = self.count(date=datetime.today())
+        self.db = Database()        
         
         # Shared properties with QML
+        self._count_total = self.count()
+        self._count_today = self.count(date=datetime.today())
         self._start_visibility = True
         self._stop_visibility = False
         self._pomodoro_length = None
@@ -96,6 +96,12 @@ class Pomodoro(QObject):
     
     def _get_has_auto_pause(self):
         return self._has_auto_pause
+    
+    def _get_count_total(self):
+        return self._count_total
+    
+    def _get_count_today(self):
+        return self._count_today
 
     @Slot(object)
     def on_start(self, value):
@@ -161,6 +167,8 @@ class Pomodoro(QObject):
     on_pomodoro_length = Signal()
     on_pause_length = Signal()
     on_has_auto_pause = Signal()
+    on_count_total = Signal()
+    on_count_today = Signal()
 
     start_visibility = Property(bool, _get_start_visibility, notify=on_start_visibility)
     stop_visibility = Property(bool, _get_stop_visibility, notify=on_stop_visibility)
@@ -168,3 +176,5 @@ class Pomodoro(QObject):
     pomodoro_length = Property(int, _get_pomodoro_length, notify=on_pomodoro_length)
     pause_length = Property(int, _get_pause_length, notify=on_pause_length)
     has_auto_pause = Property(bool, _get_has_auto_pause, notify=on_has_auto_pause)
+    count_total = Property(int, _get_count_total, notify=on_count_total)
+    count_today = Property(int, _get_count_today, notify=on_count_today)

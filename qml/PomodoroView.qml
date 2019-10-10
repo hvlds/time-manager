@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.13
 Column {
     anchors.horizontalCenter: parent.horizontalCenter
     anchors.verticalCenter: parent.verticalCenter
+    spacing: 15
     Text{
         text: pomodoro.text
         font.family: "Helvetica"
@@ -43,6 +44,33 @@ Column {
             
             onClicked: {
                 popupPomodoroSettings.open();
+            }
+        }        
+    }
+    Pane {
+        id: pomodoroSummary
+        Material.elevation: 3
+        ColumnLayout {
+            Text {
+                text: qsTr("Summary of my Pomodoros")
+                font.weight: Font.DemiBold
+                font.pointSize: 17
+            }
+            RowLayout {
+                Text {
+                    text: qsTr("#Pomodoros today: ")
+                }
+                Text {
+                    text: pomodoro.count_today
+                }
+            }
+            RowLayout {
+                Text {
+                    text: qsTr("#Pomodoros in total: ")
+                }
+                Text {
+                    text: pomodoro.count_total
+                }
             }
         }
     }
