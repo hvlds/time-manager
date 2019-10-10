@@ -5,6 +5,7 @@ from models import Database, PomodoroTask, PomodoroSettings
 
 
 class PomodoroWorker(QThread):
+    """Worker for countdown-timer in Pomodoro View."""
     on_start = Signal(object)
     on_stop = Signal()
     on_completed = Signal(object)
@@ -35,10 +36,11 @@ class PomodoroWorker(QThread):
 
 
 class Pomodoro(QObject):
+    """Manager of the Pomodoro View."""
     def __init__(self):
         QObject.__init__(self)        
         self.db = Database()        
-        
+
         # Shared properties with QML
         self._count_total = self.count()
         self._count_today = self.count(date=datetime.today())
@@ -59,8 +61,14 @@ class Pomodoro(QObject):
         self.thread.on_start.connect(self.on_start)
         self.thread.on_stop.connect(self.on_stop)
         self.thread.on_completed.connect(self.on_completed)
-    
+
     def count(self, date=None):
+        """Return the number of pomodoro tasks.
+        Parameters:
+            date (DATETIME): Date used to filter the task query        
+        Returns:
+            count (int): Number of pomodoro tasks
+        """
         if date:
             count = self.db.session.query(PomodoroTask).filter_by(date=date).count()
         else:
@@ -132,6 +140,7 @@ class Pomodoro(QObject):
         self.thread.quit()
     
     def default_settings(self):
+        """Load default settings values. If there is no record, create the first one."""
         settings = self.db.session.query(PomodoroSettings)
         if settings.count() > 0:
             settings = settings.order_by(PomodoroSettings.id.desc()).first()
