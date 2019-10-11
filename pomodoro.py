@@ -10,28 +10,51 @@ class PomodoroWorker(QThread):
     on_stop = Signal()
     on_completed = Signal(object)
 
-    def __init__(self, minutes):
+    def __init__(self, pomodoro_length, pause_length=None, has_auto_pause=False):
         QThread.__init__(self)
-        self.running_flag = False
-        self.minutes = minutes
-        self.time = timedelta(minutes=self.minutes)
+        self.running_pomodoro_flag = False
+        self.running_pause_flag = False
+        self.pomodoro_length = int(pomodoro_length)
+        self.pause_length = int(pause_length)
+        self.has_auto_pause = has_auto_pause
+        self.time = timedelta(minutes=self.pomodoro_length)
 
     def run(self):
-        self.running_flag = True
-        while self.running_flag:
+        self.running_pomodoro_flag = True
+        print("Pomodoro running")
+        while self.running_pomodoro_flag:
             if self.time != timedelta(seconds=0):
-                self.on_start.emit(self.time)
-                self.time = self.time - timedelta(seconds=1)
-                sleep(1)
+                self.display_clock()
             else:
-                self.running_flag = False
+                self.running_pomodoro_flag = False
                 date = datetime.now()
-                self.on_completed.emit(date)                
+                self.on_completed.emit(date)
+
+                # Start of the pause 
+                self.running_pause_flag = True
+                if self.has_auto_pause:               
+                    self.run_pause()                    
+                break
+    
+    def display_clock(self):
+        self.on_start.emit(self.time)
+        self.time = self.time - timedelta(seconds=1)
+        sleep(1)
+    
+    def run_pause(self):
+        print("Pause running")        
+        self.time = timedelta(minutes=self.pause_length)
+        while self.running_pause_flag:
+            if self.time != timedelta(seconds=0):
+                self.display_clock()
+            else:
+                self.running_pause_flag = False
                 break
 
     def stop(self):
-        self.running_flag = False
-        self.time = timedelta(minutes=self.minutes)        
+        self.running_pomodoro_flag = False
+        self.running_pause_flag = False
+        self.time = timedelta(minutes=self.pomodoro_length)        
         self.on_stop.emit()
 
 
@@ -57,7 +80,11 @@ class Pomodoro(QObject):
         self._text = str(timedelta(minutes=self._pomodoro_length))
 
         # Pomodoro Thread
-        self.thread = PomodoroWorker(self._pomodoro_length)
+        self.thread = PomodoroWorker(
+            pomodoro_length=self._pomodoro_length, 
+            pause_length=self._pause_length,
+            has_auto_pause=self._has_auto_pause
+        )
         self.thread.on_start.connect(self.on_start)
         self.thread.on_stop.connect(self.on_stop)
         self.thread.on_completed.connect(self.on_completed)
