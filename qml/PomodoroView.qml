@@ -120,7 +120,7 @@ Column {
                     id: "hasAutoPause"
                     Layout.alignment: Qt.AlignLeft
                     text: qsTr("auto Pause")
-                    checked: true
+                    checked: pomodoro.has_auto_pause
                 } 
                 Button {
                     text: qsTr("save")
