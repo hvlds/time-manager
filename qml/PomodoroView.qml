@@ -8,6 +8,7 @@ Column {
     anchors.verticalCenter: parent.verticalCenter
     spacing: 15
     Text{
+        anchors.horizontalCenter: parent.horizontalCenter
         text: pomodoro.text
         font.family: "Helvetica"
         font.pointSize: 50
