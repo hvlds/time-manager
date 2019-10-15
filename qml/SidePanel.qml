@@ -60,6 +60,7 @@ ToolBar {
             background1.opacity = 0.4;
             background2.opacity = 0;
             background3.opacity = 0;
+            background4.opacity = 0;
         }
     }
     ToolButton {
@@ -72,8 +73,7 @@ ToolBar {
         font.weight: Font.Light
         x:0
         y:toolButton1.y + toolButton1.height + 4
-        Rectangle
-        {
+        Rectangle{
             id: background2
             anchors.fill: parent
             opacity: 0
@@ -86,6 +86,7 @@ ToolBar {
             background1.opacity = 0;
             background2.opacity = 0.4;
             background3.opacity = 0;
+            background4.opacity = 0;
         }
         contentItem: Item{
             Row{
@@ -115,8 +116,7 @@ ToolBar {
         font.weight: Font.Light
         x:0
         y:toolButton2.y + toolButton2.height + 4
-        Rectangle
-        {
+        Rectangle{
             id: background3
             anchors.fill: parent
             opacity: 0
@@ -146,6 +146,44 @@ ToolBar {
             background1.opacity = 0;
             background2.opacity = 0;
             background3.opacity = 0.4;
+            background4.opacity = 0;
+        }
+    }
+    ToolButton {
+        id: toolButton4
+        width: toolBar.width
+        icon.source: "../img/svg/about.svg"
+        icon.height: 15
+        icon.width: 15
+        text: qsTr("About")
+        font.weight: Font.Light
+        x:0
+        y:toolButton3.y + toolButton3.height + 4
+        Rectangle {
+            id: background4
+            anchors.fill: parent
+            opacity: 0
+            color: "grey"
+        }
+        contentItem: Item{
+            Row{
+                anchors.fill: parent
+                spacing: 10
+                Image{
+                    source: toolButton4.icon.source
+                    width: toolButton4.icon.width
+                    height: toolButton4.icon.height
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                Text{
+                    text: toolButton4.text
+                    font: toolButton4.font
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
+        }
+        onClicked:{
+            popupAbout.open();
         }
     }
 }

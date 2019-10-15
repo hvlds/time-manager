@@ -61,5 +61,11 @@ ApplicationWindow {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             transformOrigin: Item.Center
         }
-    }   
+    }
+    Rectangle {   
+        color: "transparent"      
+        AboutPopup {
+            id: popupAbout 
+        }
+    }       
 }

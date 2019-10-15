@@ -12,7 +12,7 @@ class PomodoroWorker(QThread):
     on_is_pomodoro = Signal(object)
     on_is_pause = Signal(object)
 
-    def __init__(self, pomodoro_length, pause_length=None, has_auto_pause=False):
+    def __init__(self, pomodoro_length, pause_length, has_auto_pause):
         QThread.__init__(self)
         self.running_pomodoro_flag = False
         self.running_pause_flag = False
