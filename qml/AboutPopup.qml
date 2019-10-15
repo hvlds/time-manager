@@ -16,6 +16,14 @@ Popup {
         ColumnLayout {
             Text{
                 text:qsTr("About")
+                font.weight: Font.DemiBold
+                font.pointSize: 17
+            }
+            Text {
+                text: qsTr("Licence")
+            }
+            Text {
+                text:qsTr("https://github.com/hfvaldesg/time-manger")
             }
         }        
     }
