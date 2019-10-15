@@ -16,6 +16,6 @@ if __name__ == "__main__":
     engine.rootContext().setContextProperty("timer", timer)
     engine.rootContext().setContextProperty("pomodoro", pomodoro)
     engine.rootContext().setContextProperty("taskListModel", TaskListModel(engine=engine))
-    engine.load(QUrl("./qml/view.qml"))
+    engine.load(QUrl("./qml/View.qml"))
 
     sys.exit(app.exec_())

@@ -10,7 +10,7 @@ ToolBar {
     y:0
     height: applicationWindow.height
     Material.elevation: 1
-    Material.background: Material.Lime
+    Material.background: Material.Grey
     Text{
         y: 10
         id:sidePanelTitel

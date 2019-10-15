@@ -20,10 +20,16 @@ Popup {
                 font.pointSize: 17
             }
             Text {
-                text: qsTr("Licence")
+                text: qsTr("Licence: GNU General Public License v3.0")
             }
             Text {
-                text:qsTr("https://github.com/hfvaldesg/time-manger")
+                text:"<a href='http://github.com/hfvaldesg/time-manager'>GitHub repository: hfvaldesg/time-manager</a>"
+                onLinkActivated: Qt.openUrlExternally(link)
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.NoButton // we don't want to eat clicks on the Text
+                    cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                }
             }
         }        
     }
