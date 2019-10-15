@@ -9,6 +9,8 @@ class PomodoroWorker(QThread):
     on_start = Signal(object)
     on_stop = Signal()
     on_completed = Signal(object)
+    on_is_pomodoro = Signal(object)
+    on_is_pause = Signal(object)
 
     def __init__(self, pomodoro_length, pause_length=None, has_auto_pause=False):
         QThread.__init__(self)
@@ -24,14 +26,19 @@ class PomodoroWorker(QThread):
         print("Pomodoro running")
         while self.running_pomodoro_flag:
             if self.time != timedelta(seconds=0):
+                # Send signals with the state of the clock (pomodoro or pause)
+                self.on_is_pomodoro.emit(True)
+                self.on_is_pause.emit(False)
                 self.display_clock()
             else:
                 self.running_pomodoro_flag = False
                 date = datetime.now()
                 self.on_completed.emit(date)
 
-                # Start of the pause 
+                # Start of the pause                 
                 self.running_pause_flag = True
+                self.on_is_pomodoro.emit(False)
+                self.on_is_pause.emit(True)
                 if self.has_auto_pause:               
                     self.run_pause()                    
                 break
@@ -72,6 +79,8 @@ class Pomodoro(QObject):
         self._pomodoro_length = None
         self._pause_length = None
         self._has_auto_pause = None
+        self._pomodoro_flag = True
+        self._pause_flag = False
 
         # Check default settings in DB. If there is none settings, create a default one.
         self.default_settings()
@@ -108,6 +117,18 @@ class Pomodoro(QObject):
     def _set_text(self, value):
         self._text = value
         self.on_text.emit()
+    
+    def _get_pomodoro_flag(self):
+        return self._pomodoro_flag
+    
+    def _set_pomodoro_flag(self, value):
+        self._pomodoro_flag = value
+    
+    def _get_pause_flag(self):
+        return self._pause_flag
+    
+    def _set_pause_flag(self, value):
+        self._pause_flag = value
 
     def _get_start_visibility(self):
         return self._start_visibility
@@ -150,7 +171,15 @@ class Pomodoro(QObject):
     def on_completed(self, date):
         new_pomodoro = PomodoroTask(date=date)
         self.db.session.add(new_pomodoro)
-        self.db.session.commit()                  
+        self.db.session.commit()
+
+    @Slot(object)
+    def on_is_pomodoro(self, value):
+        pass
+
+    @Slot(object)
+    def on_is_pause(self, value):
+        pass                  
 
     @Slot()
     def start_clock(self):
@@ -205,6 +234,8 @@ class Pomodoro(QObject):
     on_has_auto_pause = Signal()
     on_count_total = Signal()
     on_count_today = Signal()
+    on_pomodoro_flag = Signal()
+    on_pause_flag = Signal()
 
     start_visibility = Property(bool, _get_start_visibility, notify=on_start_visibility)
     stop_visibility = Property(bool, _get_stop_visibility, notify=on_stop_visibility)
@@ -214,3 +245,5 @@ class Pomodoro(QObject):
     has_auto_pause = Property(bool, _get_has_auto_pause, notify=on_has_auto_pause)
     count_total = Property(int, _get_count_total, notify=on_count_total)
     count_today = Property(int, _get_count_today, notify=on_count_today)
+    pomodoro_flag = Property(bool, _get_pomodoro_flag, notify=on_pomodoro_flag)
+    pause_flag = Property(bool, _get_pause_flag, notify=on_pause_flag)
