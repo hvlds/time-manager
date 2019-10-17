@@ -12,13 +12,14 @@ class PomodoroWorker(QThread):
     on_is_pomodoro = Signal(object)
     on_is_pause = Signal(object)
 
-    def __init__(self, pomodoro_length, pause_length, has_auto_pause):
+    def __init__(self, pomodoro_length, pause_length, has_auto_pause, has_auto_pomodoro):
         QThread.__init__(self)
         self.running_pomodoro_flag = False
         self.running_pause_flag = False
         self.pomodoro_length = int(pomodoro_length)
         self.pause_length = int(pause_length)
         self.has_auto_pause = has_auto_pause
+        self.has_auto_pomodoro = has_auto_pomodoro
         self.time = timedelta(minutes=self.pomodoro_length)
 
     def run(self):
@@ -79,6 +80,7 @@ class Pomodoro(QObject):
         self._pomodoro_length = None
         self._pause_length = None
         self._has_auto_pause = None
+        self._has_auto_pomodoro = None
         self._pomodoro_flag = True
         self._pause_flag = False
 
@@ -92,7 +94,8 @@ class Pomodoro(QObject):
         self.thread = PomodoroWorker(
             pomodoro_length=self._pomodoro_length, 
             pause_length=self._pause_length,
-            has_auto_pause=self._has_auto_pause
+            has_auto_pause=self._has_auto_pause,
+            has_auto_pomodoro=self._has_auto_pomodoro
         )
         self.thread.on_start.connect(self.on_start)
         self.thread.on_stop.connect(self.on_stop)
@@ -153,6 +156,9 @@ class Pomodoro(QObject):
     def _get_has_auto_pause(self):
         return self._has_auto_pause
     
+    def _get_has_auto_pomodoro(self):
+        return self._has_auto_pomodoro
+    
     def _get_count_total(self):
         return self._count_total
     
@@ -204,24 +210,28 @@ class Pomodoro(QObject):
             self._pomodoro_length = settings.pomodoro_length
             self._pause_length = settings.pause_length
             self._has_auto_pause = settings.has_auto_pause
+            self._has_auto_pomodoro = settings.has_auto_pomodoro
         else:
             self._pomodoro_length = 25
             self._pause_length = 5
             self._has_auto_pause = True
+            self._has_auto_pomodoro = True
             default_settings = PomodoroSettings(
                 pomodoro_length=self._pomodoro_length,
                 pause_length=self._pause_length,
                 has_auto_pause=self._has_auto_pause,
+                has_auto_pomodoro=self._has_auto_pomodoro,
             )
             self.db.session.add(default_settings)
             self.db.session.commit()        
     
     @Slot(str, str, bool)
-    def save_settings(self, pomodoro_length, pause_length, has_auto_pause):
+    def save_settings(self, pomodoro_length, pause_length, has_auto_pause, has_auto_pomodoro):
         new_settings = PomodoroSettings(
             pomodoro_length=int(pomodoro_length),
             pause_length=int(pause_length),
-            has_auto_pause=bool(has_auto_pause)
+            has_auto_pause=bool(has_auto_pause),
+            has_auto_pomodoro=bool(has_auto_pomodoro)
         )
         self.db.session.add(new_settings)
         self.db.session.commit()
@@ -233,6 +243,7 @@ class Pomodoro(QObject):
     on_pomodoro_length = Signal()
     on_pause_length = Signal()
     on_has_auto_pause = Signal()
+    on_has_auto_pomodoro = Signal()
     on_count_total = Signal()
     on_count_today = Signal()
     on_pomodoro_flag = Signal()
@@ -244,6 +255,7 @@ class Pomodoro(QObject):
     pomodoro_length = Property(int, _get_pomodoro_length, notify=on_pomodoro_length)
     pause_length = Property(int, _get_pause_length, notify=on_pause_length)
     has_auto_pause = Property(bool, _get_has_auto_pause, notify=on_has_auto_pause)
+    has_auto_pomodoro = Property(bool, _get_has_auto_pomodoro, notify=on_has_auto_pomodoro)
     count_total = Property(int, _get_count_total, notify=on_count_total)
     count_today = Property(int, _get_count_today, notify=on_count_today)
     pomodoro_flag = Property(bool, _get_pomodoro_flag, notify=on_pomodoro_flag)
