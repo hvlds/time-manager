@@ -142,13 +142,14 @@ Column {
                         var pomodoroLengthTemp = pomodoroLength.text;
                         var pauseLengthTemp = pauseLength.text;
                         var hasAutoPauseTemp = hasAutoPause.checked;
+                        var hasAutoPomodoroTemp = hasAutoPomodoro.checked;
                         if(pomodoroLengthTemp === ""){
                             pomodoroLengthTemp = 25;
                         } 
                         if(pauseLengthTemp === ""){
                             pauseLengthTemp = 5;
                         }
-                        pomodoro.save_settings(pomodoroLengthTemp, pauseLengthTemp, hasAutoPauseTemp);
+                        pomodoro.save_settings(pomodoroLengthTemp, pauseLengthTemp, hasAutoPauseTemp, hasAutoPomodoroTemp);
                         popupPomodoroSettings.close();
                     }
                 }           

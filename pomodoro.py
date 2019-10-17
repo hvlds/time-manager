@@ -229,7 +229,7 @@ class Pomodoro(QObject):
             self.db.session.add(default_settings)
             self.db.session.commit()        
     
-    @Slot(str, str, bool)
+    @Slot(str, str, bool, bool)
     def save_settings(self, pomodoro_length, pause_length, has_auto_pause, has_auto_pomodoro):
         new_settings = PomodoroSettings(
             pomodoro_length=int(pomodoro_length),
