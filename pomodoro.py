@@ -130,12 +130,14 @@ class Pomodoro(QObject):
     
     def _set_pomodoro_flag(self, value):
         self._pomodoro_flag = value
+        self.on_pomodoro_flag.emit()
     
     def _get_pause_flag(self):
         return self._pause_flag
     
     def _set_pause_flag(self, value):
         self._pause_flag = value
+        self.on_pause_flag.emit()
 
     def _get_start_visibility(self):
         return self._start_visibility
@@ -166,8 +168,16 @@ class Pomodoro(QObject):
     def _get_count_total(self):
         return self._count_total
     
+    def _set_count_total(self, value):
+        self._count_total = value
+        self.on_count_total.emit()
+    
     def _get_count_today(self):
         return self._count_today
+    
+    def _set_count_today(self, value):
+        self._count_today = value
+        self.on_count_today.emit()
 
     @Slot(object)
     def on_start(self, value):
@@ -183,6 +193,8 @@ class Pomodoro(QObject):
         new_pomodoro = PomodoroTask(date=date)
         self.db.session.add(new_pomodoro)
         self.db.session.commit()
+        self._set_count_total(self.count())
+        self._set_count_today(self.count(date=datetime.today()))
 
     @Slot(object)
     def on_is_pomodoro(self, value):

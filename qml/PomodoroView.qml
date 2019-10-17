@@ -13,9 +13,9 @@ Column {
         font.family: "Helvetica"
         font.pointSize: 50
         color:(
-            pomodoro.pomodoro_flag === true
+            pomodoro.pomodoro_flag == true
             ? "black"
-            : pomodoro.pause_flag === true
+            : pomodoro.pause_flag == true
             ? "red"
             : "yellow"
         )
