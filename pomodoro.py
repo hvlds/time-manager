@@ -42,7 +42,11 @@ class PomodoroWorker(QThread):
                 self.on_is_pause.emit(True)
                 if self.has_auto_pause:               
                     self.run_pause()                    
-                break
+                
+                if self.has_auto_pomodoro:
+                    # Recursive calling of "run" in case the option of auto pomodoro is True. 
+                    # TODO: Is a good solution? Check the situation
+                    self.run()
     
     def display_clock(self):
         self.on_start.emit(self.time)

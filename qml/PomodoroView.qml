@@ -132,7 +132,7 @@ Column {
                     id: "hasAutoPomodoro"
                     Layout.alignment: Qt.AlignLeft
                     text: qsTr("auto Pomodoro")
-                    //checked: pomodoro.has_auto_pomodoro
+                    checked: pomodoro.has_auto_pomodoro
                 }  
                 Button {
                     text: qsTr("save")
