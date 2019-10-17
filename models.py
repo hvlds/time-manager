@@ -54,6 +54,7 @@ class PomodoroSettings(Base):
     pomodoro_length = Column(Integer)
     pause_length = Column(Integer)
     has_auto_pause = Column(Boolean)
+    has_auto_pomodoro = Column(Boolean)
        
 
 Base.metadata.create_all(db.engine)

@@ -169,6 +169,7 @@ class Pomodoro(QObject):
 
     @Slot(object)
     def on_completed(self, date):
+        # Pomodoro is done
         new_pomodoro = PomodoroTask(date=date)
         self.db.session.add(new_pomodoro)
         self.db.session.commit()

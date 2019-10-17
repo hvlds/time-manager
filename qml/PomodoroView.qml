@@ -12,7 +12,13 @@ Column {
         text: pomodoro.text
         font.family: "Helvetica"
         font.pointSize: 50
-        color:"black"
+        color:(
+            pomodoro.pomodoro_flag === true
+            ? "black"
+            : pomodoro.pause_flag === true
+            ? "red"
+            : "yellow"
+        )
     }
     Row {
         anchors.horizontalCenter: parent.horizontalCenter
@@ -121,7 +127,13 @@ Column {
                     Layout.alignment: Qt.AlignLeft
                     text: qsTr("auto Pause")
                     checked: pomodoro.has_auto_pause
-                } 
+                }
+                CheckBox {
+                    id: "hasAutoPomodoro"
+                    Layout.alignment: Qt.AlignLeft
+                    text: qsTr("auto Pomodoro")
+                    //checked: pomodoro.has_auto_pomodoro
+                }  
                 Button {
                     text: qsTr("save")
                     Layout.alignment: Qt.AlignHCenter
