@@ -17,6 +17,8 @@ First of all, we recommend you to create and activate a new environment (you can
 * [Python3](https://www.python.org/) - It doesn't need an introduction
 * [PySide2](https://www.qt.io/qt-for-python) - Python binding of the cross-platform GUI toolkit Qt
 
+Note: Time Manager is built with Qt5 and includes the library QtCharts to plot the graphics in the "History" section. In order to see the Material Design style is need at least Qt5.7. We are developing the App with Qt5.13.1.
+
 ## License
 
 This project is licensed under the GNU GPL version 3 &mdash; see the [LICENSE](LICENSE) file for details
